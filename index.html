@@ -1,62 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Crawl Asleep</title>
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       font-family: 'Courier New', monospace;
       color: #c8b8aa;
-      background-color: #0a0a0a;
-      position: relative;
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    .background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: url('images/bg.jpg') no-repeat center center fixed;
+      background: #0a0a0a url('images/bg.jpg') no-repeat center center fixed;
       background-size: cover;
-      opacity: 0.15;
-      z-index: -1;
+      background-blend-mode: multiply;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
     }
 
-    main {
+    .container {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 3rem;
       max-width: 800px;
-      margin: 0 auto;
-      padding: 4rem 2rem;
-      background-color: rgba(0, 0, 0, 0.65);
-      box-shadow: 0 0 20px #222;
-      border: 1px solid #2a2a2a;
+      text-align: center;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.8);
     }
 
-    h2 {
+    h1 {
       font-size: 2rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid #444;
-      padding-bottom: 0.5rem;
-      color: #c8b8aa;
+      margin-bottom: 2rem;
+      letter-spacing: 2px;
     }
 
     p {
-      line-height: 1.6;
-      font-size: 1.1rem;
+      font-size: 1.2rem;
+      line-height: 2;
+      margin-bottom: 1.5rem;
     }
   </style>
 </head>
 <body>
-  <div class="background"></div>
-  <main>
-    <section>
-      <h2>What It Means to Crawl Asleep</h2>
-      <p>To crawl asleep is to keep moving while numb, to drift through life shrouded in emotional fog. It's the slow, unconscious forward motion of someone wrapped in silent pain—unable to stop, yet disconnected from purpose. Crawling asleep is not surrender, but a survival instinct, born of grief, repression, and the failure of old identities. It is the tension between movement and meaning, a haunting presence beneath still skin.</p>
-    </section>
-  </main>
+  <div class="container">
+    <p>You’re moving. You’re changing. But you’re not awake.</p>
+    <p>Not dead. Just drifting.</p>
+    <p>Not growing. Just shedding what hurts.</p>
+    <p>Each layer left behind leaves you smaller, not stronger.</p>
+    <p>You're afraid to stop.</p>
+    <p>Afraid of silence.</p>
+    <p>Afraid of becoming nothing.</p>
+    <p>So you keep crawling.</p>
+    <p>This is how we suffer.</p>
+    <p>This is how we inherit pain.</p>
+    <p>This is how we Crawl Asleep.</p>
+  </div>
 </body>
 </html>

@@ -14,27 +14,36 @@
     body {
       font-family: 'Courier New', monospace;
       color: #c8b8aa;
-      background: #000 url('images/bg.jpg') no-repeat center center fixed;
+      background: url('images/bg.jpg') no-repeat center center fixed;
       background-size: cover;
-      background-blend-mode: multiply;
       min-height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
       text-align: center;
       padding: 2rem;
-      transition: background-color 4s ease;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.95);
+      z-index: 0;
+      transition: background-color 5s ease;
     }
 
     .container {
       position: relative;
+      z-index: 1;
     }
 
     .line {
       position: absolute;
       opacity: 0;
       transition: opacity 2s ease;
-      font-size: clamp(1rem, 4vw, 1.5rem);
+      font-size: clamp(1rem, 3.5vw, 1.5rem);
       white-space: nowrap;
     }
 
@@ -52,6 +61,8 @@
   </style>
 </head>
 <body>
+  <div class="overlay" id="overlay"></div>
+
   <div class="container">
     <p class="line">You’re moving. You’re changing. But you’re not awake.</p>
     <p class="line">Not dead. Just drifting.</p>
@@ -68,6 +79,7 @@
 
   <script>
     const lines = document.querySelectorAll('.line');
+    const overlay = document.getElementById('overlay');
     let current = 0;
     const delay = 2500; // 2.5 seconds
 
@@ -79,7 +91,17 @@
       if (current < lines.length) {
         lines[current].classList.add('visible');
 
-        // When last line appears, brighten background
+        // When the last line fades in, fade out the overlay
         if (current === lines.length - 1) {
-          document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
         }
+
+        current++;
+        setTimeout(showNextLine, delay);
+      }
+    }
+
+    setTimeout(showNextLine, delay);
+  </script>
+</body>
+</html>

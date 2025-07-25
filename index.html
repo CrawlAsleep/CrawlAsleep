@@ -165,10 +165,22 @@
       }, 1000); // matches CSS transition duration
 
       // Start music loop
-      music.play();
+      // Start music quietly
+music.volume = 0;
+music.play();
 
-      // Begin text animation
-      setTimeout(showNextLine, firstDelay);
+// Fade music in gradually
+let fadeInterval = setInterval(() => {
+  if (music.volume < 1.0) {
+    music.volume = Math.min(1.0, music.volume + 0.02); // Adjust speed here
+  } else {
+    clearInterval(fadeInterval);
+  }
+}, 200); // Every 200ms — total fade time ≈ 5 seconds
+
+// Start text animation after delay
+setTimeout(showNextLine, firstDelay);
+
     });
   </script>
 </body>

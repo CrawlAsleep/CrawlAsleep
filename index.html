@@ -16,11 +16,7 @@
       color: #c8b8aa;
       background: url('images/bg.jpg') no-repeat center center fixed;
       background-size: cover;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
+      height: 100vh;
       overflow: hidden;
       position: relative;
     }
@@ -30,7 +26,7 @@
       inset: 0;
       background-color: rgba(0, 0, 0, 0.95);
       z-index: 0;
-      transition: background-color 3s linear;
+      transition: background-color 2.5s linear;
     }
 
     .container {
@@ -43,11 +39,12 @@
     .line {
       position: absolute;
       opacity: 0;
-      transition: opacity 3s ease;
       font-size: clamp(1.2rem, 4vw, 2rem);
       width: 90%;
       left: 50%;
       transform: translateX(-50%);
+      text-align: center;
+      transition: opacity 3s ease;
     }
 
     .line.visible {
@@ -83,12 +80,13 @@
     const lines = document.querySelectorAll('.line');
     const overlay = document.getElementById('overlay');
     let current = 0;
-    const delay = 3500; // Time between line transitions
-    const fadeStep = 0.05; // Background fade step per line
+    const totalLines = lines.length;
+    const delay = 3500; // 3.5 seconds between each line
+    const fadeStep = 0.04; // Slower background fade
     let overlayAlpha = 0.95;
 
     function setRandomVerticalPosition(el) {
-      const top = 30 + Math.random() * 40; // between 30% and 70%
+      const top = 25 + Math.random() * 50; // between 25% and 75%
       el.style.top = `${top}%`;
     }
 
@@ -98,21 +96,25 @@
         lines[current - 1].classList.remove('visible');
       }
 
-      // Fade in the current line
-      if (current < lines.length) {
+      // Show current line
+      if (current < totalLines) {
         const line = lines[current];
         setRandomVerticalPosition(line);
         line.classList.add('visible');
 
-        // Gradually fade overlay (brighten background slightly per line)
-        overlayAlpha = Math.max(overlayAlpha - fadeStep, 0.55); // Never go below 0.55
+        // Gradually fade background
+        overlayAlpha = Math.max(overlayAlpha - fadeStep, 0.6); // Stop at 0.6
         overlay.style.backgroundColor = `rgba(0, 0, 0, ${overlayAlpha})`;
 
         current++;
         setTimeout(showNextLine, delay);
+      } else {
+        // Fade out final line
+        lines[current - 1].classList.remove('visible');
       }
     }
 
+    // Start the sequence
     setTimeout(showNextLine, delay);
   </script>
 </body>

@@ -23,7 +23,7 @@
     .overlay {
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.98); /* very dark at start */
+      background-color: rgba(0, 0, 0, 0.98);
       z-index: 0;
       transition: background-color 1s linear;
     }
@@ -42,12 +42,17 @@
       font-size: clamp(1rem, 3.5vw, 1.75rem);
       color: #c8b8aa;
       opacity: 0;
-      transition: opacity 2s ease-in;
+      transition: opacity 2s ease-in-out;
       padding: 0 1rem;
+      top: 20%; /* start higher */
     }
 
     .line.visible {
       opacity: 1;
+    }
+
+    .line.hidden {
+      opacity: 0;
     }
 
     @media (max-width: 600px) {
@@ -70,43 +75,4 @@
     <div class="line">So you keep crawling.</div>
     <div class="line">This is how we suffer.</div>
     <div class="line">This is how we inherit pain.</div>
-    <div class="line">This is how we</div>
-  </div>
-
-  <script>
-    const lines = document.querySelectorAll('.line');
-    const overlay = document.getElementById('overlay');
-    const totalLines = lines.length;
-    let current = 0;
-    let overlayAlpha = 0.98;
-    let backgroundFading = false;
-    const delay = 3500;
-
-    function showNextLine() {
-      if (current < totalLines) {
-        const line = lines[current];
-        line.classList.add('visible');
-        line.style.top = `${35 + current * 5.5}%`; // cascade down vertically
-        current++;
-        setTimeout(showNextLine, delay);
-      } else if (!backgroundFading) {
-        backgroundFading = true;
-        fadeOutOverlay();
-      }
-    }
-
-    function fadeOutOverlay() {
-      const interval = setInterval(() => {
-        overlayAlpha -= 0.01;
-        if (overlayAlpha <= 0.65) {
-          overlayAlpha = 0.65; // stop fade here for legibility
-          clearInterval(interval);
-        }
-        overlay.style.backgroundColor = `rgba(0, 0, 0, ${overlayAlpha})`;
-      }, 100); // faster fade every 0.1s
-    }
-
-    showNextLine();
-  </script>
-</body>
-</html>
+    <div class="line">This is h

@@ -44,7 +44,6 @@
       opacity: 0;
       transition: opacity 2s ease-in-out;
       padding: 0 1rem;
-      top: 20%; /* start higher */
     }
 
     .line.visible {
@@ -65,17 +64,17 @@
 <body>
   <div class="overlay" id="overlay"></div>
   <div class="container" id="text-container">
-    <div class="line">You’re moving. You’re changing. But you’re not awake.</div>
-    <div class="line">Not dead. Just drifting.</div>
-    <div class="line">Not growing. Just shedding what hurts.</div>
-    <div class="line">Each layer left behind leaves you smaller, not stronger.</div>
-    <div class="line">You're afraid to stop.</div>
-    <div class="line">Afraid of silence.</div>
-    <div class="line">Afraid of becoming nothing.</div>
-    <div class="line">So you keep crawling.</div>
-    <div class="line">This is how we suffer.</div>
-    <div class="line">This is how we inherit pain.</div>
-    <div class="line">This is how we</div>
+    <div class="line" style="top: 18%;">You’re moving. You’re changing. But you’re not awake.</div>
+    <div class="line" style="top: 24%;">Not dead. Just drifting.</div>
+    <div class="line" style="top: 30%;">Not growing. Just shedding what hurts.</div>
+    <div class="line" style="top: 36%;">Each layer left behind leaves you smaller, not stronger.</div>
+    <div class="line" style="top: 42%;">You're afraid to stop.</div>
+    <div class="line" style="top: 48%;">Afraid of silence.</div>
+    <div class="line" style="top: 54%;">Afraid of becoming nothing.</div>
+    <div class="line" style="top: 60%;">So you keep crawling.</div>
+    <div class="line" style="top: 66%;">This is how we suffer.</div>
+    <div class="line" style="top: 72%;">This is how we inherit pain.</div>
+    <div class="line" style="top: 78%;">This is how we</div>
   </div>
 
   <script>
@@ -85,7 +84,7 @@
     let current = 0;
     let overlayAlpha = 0.98;
     let backgroundFading = false;
-    const delay = 3500;
+    const delay = 5500; // 5.5 seconds per line
 
     function showNextLine() {
       // Hide previous line
@@ -108,9 +107,9 @@
 
     function fadeOutOverlay() {
       const interval = setInterval(() => {
-        overlayAlpha -= 0.01;
-        if (overlayAlpha <= 0.65) {
-          overlayAlpha = 0.65;
+        overlayAlpha -= 0.005; // slower fade
+        if (overlayAlpha <= 0.7) {
+          overlayAlpha = 0.7;
           clearInterval(interval);
         }
         overlay.style.backgroundColor = `rgba(0, 0, 0, ${overlayAlpha})`;

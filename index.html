@@ -21,7 +21,6 @@
       justify-content: center;
       align-items: center;
       text-align: center;
-      padding: 2rem;
       overflow: hidden;
       position: relative;
     }
@@ -37,6 +36,8 @@
     .container {
       position: relative;
       z-index: 1;
+      width: 100%;
+      height: 100%;
     }
 
     .line {
@@ -44,7 +45,8 @@
       opacity: 0;
       transition: opacity 2s ease;
       font-size: clamp(1rem, 3.5vw, 1.5rem);
-      white-space: nowrap;
+      width: 80%;
+      margin: 0 auto;
     }
 
     .line.visible {
@@ -54,7 +56,7 @@
     @media (max-width: 600px) {
       .line {
         font-size: 1rem;
-        white-space: normal;
+        width: 90%;
         padding: 0 1rem;
       }
     }
@@ -63,7 +65,7 @@
 <body>
   <div class="overlay" id="overlay"></div>
 
-  <div class="container">
+  <div class="container" id="container">
     <p class="line">You’re moving. You’re changing. But you’re not awake.</p>
     <p class="line">Not dead. Just drifting.</p>
     <p class="line">Not growing. Just shedding what hurts.</p>
@@ -80,8 +82,18 @@
   <script>
     const lines = document.querySelectorAll('.line');
     const overlay = document.getElementById('overlay');
+    const container = document.getElementById('container');
     let current = 0;
-    const delay = 2500; // 2.5 seconds
+    const delay = 3500; // 3.5 seconds
+
+    // Randomize position near center
+    function randomizePosition(el) {
+      const top = 40 + Math.random() * 20; // 40–60% vertical
+      const left = 30 + Math.random() * 40; // 30–70% horizontal
+      el.style.top = `${top}%`;
+      el.style.left = `${left}%`;
+      el.style.transform = 'translate(-50%, -50%)';
+    }
 
     function showNextLine() {
       if (current > 0) {
@@ -89,15 +101,17 @@
       }
 
       if (current < lines.length) {
-        lines[current].classList.add('visible');
-
-        // When the last line fades in, fade out the overlay
-        if (current === lines.length - 1) {
-          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
-        }
-
+        const line = lines[current];
+        randomizePosition(line);
+        line.classList.add('visible');
         current++;
+
         setTimeout(showNextLine, delay);
+      } else {
+        // Once all lines shown, wait a bit and fade the overlay
+        setTimeout(() => {
+          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+        }, delay);
       }
     }
 

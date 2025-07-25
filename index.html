@@ -3,48 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Crawl Asleep</title>
   <style>
     body {
       margin: 0;
       padding: 0;
-      background: #0a0a0a url('images/bg.jpg') no-repeat center center fixed;
-      background-size: cover;
-      color: #c8b8aa;
       font-family: 'Courier New', monospace;
-      background-blend-mode: multiply;
-    }
-
-    header {
-      background-color: rgba(0, 0, 0, 0.85);
-      padding: 2rem;
-      text-align: center;
-      border-bottom: 2px solid #2a2a2a;
-      box-shadow: 0 0 10px #444;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 3rem;
-      letter-spacing: 3px;
       color: #c8b8aa;
-      text-shadow: 2px 2px 8px #000;
+      background-color: #0a0a0a;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('images/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      opacity: 0.15;
+      z-index: -1;
     }
 
     main {
-      padding: 3rem;
       max-width: 800px;
       margin: 0 auto;
-      background-color: rgba(0, 0, 0, 0.6);
+      padding: 4rem 2rem;
+      background-color: rgba(0, 0, 0, 0.65);
+      box-shadow: 0 0 20px #222;
       border: 1px solid #2a2a2a;
-      box-shadow: 0 0 20px #444;
     }
 
-    section {
-      margin-bottom: 3rem;
-    }
-
-    section h2 {
+    h2 {
       font-size: 2rem;
       margin-bottom: 1rem;
       border-bottom: 1px solid #444;
@@ -52,30 +44,19 @@
       color: #c8b8aa;
     }
 
-    footer {
-      background-color: rgba(0, 0, 0, 0.85);
-      text-align: center;
-      padding: 1rem;
-      border-top: 1px solid #2a2a2a;
-      font-size: 0.9rem;
-      color: #666;
+    p {
+      line-height: 1.6;
+      font-size: 1.1rem;
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Crawl Asleep</h1>
-  </header>
-
+  <div class="background"></div>
   <main>
-    <section id="meaning">
+    <section>
       <h2>What It Means to Crawl Asleep</h2>
-      <p>To crawl asleep is to move forward in silence—slow, uncertain, and burdened by the weight of unrealized emotion. It is the grief that doesn't speak, the identity that won't settle, the mask that fuses with skin. Crawl Asleep is the quiet desperation under every calm surface. It is not death. It is not rest. It is the life lived unconscious, clinging to the walls of transformation.</p>
+      <p>To crawl asleep is to keep moving while numb, to drift through life shrouded in emotional fog. It's the slow, unconscious forward motion of someone wrapped in silent pain—unable to stop, yet disconnected from purpose. Crawling asleep is not surrender, but a survival instinct, born of grief, repression, and the failure of old identities. It is the tension between movement and meaning, a haunting presence beneath still skin.</p>
     </section>
   </main>
-
-  <footer>
-    <p>&copy; 2025 Crawl Asleep. All rights reserved.</p>
-  </footer>
 </body>
 </html>

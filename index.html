@@ -85,6 +85,7 @@
     let overlayAlpha = 0.98;
     let backgroundFading = false;
     const delay = 5500; // 5.5 seconds per line
+    const firstDelay = 2000; // 2-second delay before first line
 
     function showNextLine() {
       // Hide previous line
@@ -107,7 +108,7 @@
 
     function fadeOutOverlay() {
       const interval = setInterval(() => {
-        overlayAlpha -= 0.005; // slower fade
+        overlayAlpha -= 0.005;
         if (overlayAlpha <= 0.7) {
           overlayAlpha = 0.7;
           clearInterval(interval);
@@ -116,7 +117,8 @@
       }, 100);
     }
 
-    showNextLine();
+    // Start after initial delay
+    setTimeout(showNextLine, firstDelay);
   </script>
 </body>
 </html>

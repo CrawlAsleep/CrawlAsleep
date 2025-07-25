@@ -12,63 +12,74 @@
     }
 
     body {
-  font-family: 'Courier New', monospace;
-  color: #c8b8aa;
-  background: rgba(20, 20, 20, 0.3) url('images/bg.jpg') no-repeat center center fixed;
-  background-size: cover;
-  background-blend-mode: overlay;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 2rem;
-}
+      font-family: 'Courier New', monospace;
+      color: #c8b8aa;
+      background: #000 url('images/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
+      background-blend-mode: multiply;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      transition: background-color 4s ease;
+    }
 
-    .fade-line {
+    .container {
+      position: relative;
+    }
+
+    .line {
+      position: absolute;
       opacity: 0;
-      animation: fadeIn 2s forwards;
+      transition: opacity 2s ease;
+      font-size: clamp(1rem, 4vw, 1.5rem);
+      white-space: nowrap;
     }
 
-    .fade-line:nth-child(1)  { animation-delay: 1.5s; }
-    .fade-line:nth-child(2)  { animation-delay: 3s; }
-    .fade-line:nth-child(3)  { animation-delay: 4.5s; }
-    .fade-line:nth-child(4)  { animation-delay: 6s; }
-    .fade-line:nth-child(5)  { animation-delay: 7.5s; }
-    .fade-line:nth-child(6)  { animation-delay: 9s; }
-    .fade-line:nth-child(7)  { animation-delay: 10.5s; }
-    .fade-line:nth-child(8)  { animation-delay: 12s; }
-    .fade-line:nth-child(9)  { animation-delay: 13.5s; }
-    .fade-line:nth-child(10) { animation-delay: 15s; }
-    .fade-line:nth-child(11) { animation-delay: 16.5s; }
+    .line.visible {
+      opacity: 1;
+    }
 
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    @media (max-width: 600px) {
+      .line {
+        font-size: 1rem;
+        white-space: normal;
+        padding: 0 1rem;
       }
-    }
-
-    p {
-      font-size: clamp(1rem, 2.5vw, 1.5rem);
-      margin-bottom: 1.5rem;
-      transform: translateY(20px);
     }
   </style>
 </head>
 <body>
-  <div>
-    <p class="fade-line">You’re moving. You’re changing. But you’re not awake.</p>
-    <p class="fade-line">Not dead. Just drifting.</p>
-    <p class="fade-line">Not growing. Just shedding what hurts.</p>
-    <p class="fade-line">Each layer left behind leaves you smaller, not stronger.</p>
-    <p class="fade-line">You're afraid to stop.</p>
-    <p class="fade-line">Afraid of silence.</p>
-    <p class="fade-line">Afraid of becoming nothing.</p>
-    <p class="fade-line">So you keep crawling.</p>
-    <p class="fade-line">This is how we suffer.</p>
-    <p class="fade-line">This is how we inherit pain.</p>
-    <p class="fade-line">This is how we Crawl Asleep.</p>
+  <div class="container">
+    <p class="line">You’re moving. You’re changing. But you’re not awake.</p>
+    <p class="line">Not dead. Just drifting.</p>
+    <p class="line">Not growing. Just shedding what hurts.</p>
+    <p class="line">Each layer left behind leaves you smaller, not stronger.</p>
+    <p class="line">You're afraid to stop.</p>
+    <p class="line">Afraid of silence.</p>
+    <p class="line">Afraid of becoming nothing.</p>
+    <p class="line">So you keep crawling.</p>
+    <p class="line">This is how we suffer.</p>
+    <p class="line">This is how we inherit pain.</p>
+    <p class="line">This is how we</p>
   </div>
-</body>
-</html>
+
+  <script>
+    const lines = document.querySelectorAll('.line');
+    let current = 0;
+    const delay = 2500; // 2.5 seconds
+
+    function showNextLine() {
+      if (current > 0) {
+        lines[current - 1].classList.remove('visible');
+      }
+
+      if (current < lines.length) {
+        lines[current].classList.add('visible');
+
+        // When last line appears, brighten background
+        if (current === lines.length - 1) {
+          document.body.style.backgroundColor = 'rgba(0, 0, 0, 0.3)';
+        }

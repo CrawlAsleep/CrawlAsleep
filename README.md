@@ -56,14 +56,6 @@
   </style>
 </head>
 <body>
-  <h1>Crawl Asleep</h1>
-  <p class="tagline">New EP coming soon. Born from myth. Drenched in noise.</p>
-
-  <ul class="links">
-    <li><a href="https://youtube.com/yourchannel" target="_blank">YouTube</a></li>
-    <li><a href="https://spotify.com/yourband" target="_blank">Spotify</a></li>
-    <li><a href="mythology.html">Read the Mythology</a></li>
-  </ul>
 
   <footer>
     &copy; 2025 Crawl Asleep. All skins reserved.

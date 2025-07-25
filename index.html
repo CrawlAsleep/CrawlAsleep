@@ -13,38 +13,37 @@
 
     body {
       font-family: 'Courier New', monospace;
-      color: #c8b8aa;
       background: url('images/bg.jpg') no-repeat center center fixed;
       background-size: cover;
-      height: 100vh;
-      overflow: hidden;
       position: relative;
+      min-height: 100vh;
+      overflow: hidden;
     }
 
     .overlay {
       position: absolute;
       inset: 0;
-      background-color: rgba(0, 0, 0, 0.95);
+      background-color: rgba(0, 0, 0, 0.98); /* very dark at start */
       z-index: 0;
-      transition: background-color 2.5s linear;
+      transition: background-color 1s linear;
     }
 
     .container {
       position: relative;
       z-index: 1;
       width: 100%;
-      height: 100%;
+      height: 100vh;
     }
 
     .line {
       position: absolute;
-      opacity: 0;
-      font-size: clamp(1.2rem, 4vw, 2rem);
-      width: 90%;
-      left: 50%;
-      transform: translateX(-50%);
+      width: 100%;
       text-align: center;
-      transition: opacity 3s ease;
+      font-size: clamp(1rem, 3.5vw, 1.75rem);
+      color: #c8b8aa;
+      opacity: 0;
+      transition: opacity 2s ease-in;
+      padding: 0 1rem;
     }
 
     .line.visible {
@@ -53,73 +52,61 @@
 
     @media (max-width: 600px) {
       .line {
-        font-size: 1rem;
-        width: 90%;
+        font-size: 1.1rem;
       }
     }
   </style>
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
-
-  <div class="container" id="container">
-    <p class="line">You’re moving. You’re changing. But you’re not awake.</p>
-    <p class="line">Not dead. Just drifting.</p>
-    <p class="line">Not growing. Just shedding what hurts.</p>
-    <p class="line">Each layer left behind leaves you smaller, not stronger.</p>
-    <p class="line">You're afraid to stop.</p>
-    <p class="line">Afraid of silence.</p>
-    <p class="line">Afraid of becoming nothing.</p>
-    <p class="line">So you keep crawling.</p>
-    <p class="line">This is how we suffer.</p>
-    <p class="line">This is how we inherit pain.</p>
-    <p class="line">This is how we</p>
+  <div class="container" id="text-container">
+    <div class="line">You’re moving. You’re changing. But you’re not awake.</div>
+    <div class="line">Not dead. Just drifting.</div>
+    <div class="line">Not growing. Just shedding what hurts.</div>
+    <div class="line">Each layer left behind leaves you smaller, not stronger.</div>
+    <div class="line">You're afraid to stop.</div>
+    <div class="line">Afraid of silence.</div>
+    <div class="line">Afraid of becoming nothing.</div>
+    <div class="line">So you keep crawling.</div>
+    <div class="line">This is how we suffer.</div>
+    <div class="line">This is how we inherit pain.</div>
+    <div class="line">This is how we</div>
   </div>
 
   <script>
     const lines = document.querySelectorAll('.line');
     const overlay = document.getElementById('overlay');
-    let current = 0;
     const totalLines = lines.length;
-    const delay = 3500; // 3.5 seconds between each line
-    const fadeStep = 0.04; // Slower background fade
-    let overlayAlpha = 0.95;
-
-    function setRandomVerticalPosition(el) {
-      const top = 25 + Math.random() * 50; // between 25% and 75%
-      el.style.top = `${top}%`;
-    }
+    let current = 0;
+    let overlayAlpha = 0.98;
+    let backgroundFading = false;
+    const delay = 3500;
 
     function showNextLine() {
-      // Fade out the previous line
-      if (current > 0) {
-        lines[current - 1].classList.remove('visible');
-      }
-
-      // Show current line
       if (current < totalLines) {
         const line = lines[current];
-        setRandomVerticalPosition(line);
         line.classList.add('visible');
-
-        // Calculate how far along we are (0 to 1)
-const progress = current / totalLines;
-
-// Apply a nonlinear fade curve (slow at first, faster later)
-const fadeTarget = 0.6 + 0.35 * Math.pow(1 - progress, 2); // easing curve
-overlayAlpha = Math.max(fadeTarget, 0.6);
-overlay.style.backgroundColor = `rgba(0, 0, 0, ${overlayAlpha})`;
-
+        line.style.top = `${35 + current * 5.5}%`; // cascade down vertically
         current++;
         setTimeout(showNextLine, delay);
-      } else {
-        // Fade out final line
-        lines[current - 1].classList.remove('visible');
+      } else if (!backgroundFading) {
+        backgroundFading = true;
+        fadeOutOverlay();
       }
     }
 
-    // Start the sequence
-    setTimeout(showNextLine, delay);
+    function fadeOutOverlay() {
+      const interval = setInterval(() => {
+        overlayAlpha -= 0.01;
+        if (overlayAlpha <= 0.65) {
+          overlayAlpha = 0.65; // stop fade here for legibility
+          clearInterval(interval);
+        }
+        overlay.style.backgroundColor = `rgba(0, 0, 0, ${overlayAlpha})`;
+      }, 100); // faster fade every 0.1s
+    }
+
+    showNextLine();
   </script>
 </body>
 </html>

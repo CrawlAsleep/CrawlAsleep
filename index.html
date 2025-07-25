@@ -13,27 +13,11 @@
 
     body {
       font-family: 'Courier New', monospace;
+      background: url('images/bg.jpg') no-repeat center center fixed;
+      background-size: cover;
       position: relative;
       min-height: 100vh;
       overflow: hidden;
-      background-color: black;
-    }
-
-    /* New parallax background */
-    #parallax-bg {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 120vh;
-      background-image: url('images/bg.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: -2;
-      transform: translateY(0px);
-      transition: transform 0.1s linear;
-      will-change: transform;
     }
 
     .overlay {
@@ -105,12 +89,19 @@
     #text-container {
       pointer-events: none;
     }
+
+    /* 📱 Mobile-specific background scaling fix */
+    @media (max-width: 768px) {
+      body {
+        background-size: 100% auto;
+        background-attachment: scroll;
+        background-position: top center;
+        background-repeat: no-repeat;
+      }
+    }
   </style>
 </head>
 <body>
-  <!-- Parallax background div -->
-  <div id="parallax-bg"></div>
-
   <div class="overlay" id="overlay"></div>
 
   <button id="enter-btn">Enter</button>
@@ -138,14 +129,13 @@
     const lines = document.querySelectorAll('.line');
     const overlay = document.getElementById('overlay');
     const music = document.getElementById('bg-music');
-    const parallax = document.getElementById('parallax-bg');
     const totalLines = lines.length;
 
     let current = 0;
     let overlayAlpha = 0.98;
     let backgroundFading = false;
-    const delay = 5500;
-    const firstDelay = 2000;
+    const delay = 5500; // 5.5 seconds per line
+    const firstDelay = 2000; // 2-second delay before first line
 
     function showNextLine() {
       if (current > 0) {
@@ -175,25 +165,18 @@
       }, 100);
     }
 
-    // Parallax scroll effect
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY;
-      parallax.style.transform = `translateY(${scrolled * 0.4}px)`;
-    });
-
     enterBtn.addEventListener('click', () => {
-      // Fade out the button smoothly
       enterBtn.classList.add('fade-out');
 
       setTimeout(() => {
         enterBtn.remove();
       }, 1000);
 
-      // Start music fade-in
+      // Fade in music
       music.volume = 0;
       music.play();
 
-      let fadeInterval = setInterval(() => {
+      const fadeInterval = setInterval(() => {
         if (music.volume < 1.0) {
           music.volume = Math.min(1.0, music.volume + 0.02);
         } else {

@@ -59,10 +59,43 @@
         font-size: 1.1rem;
       }
     }
+
+    #enter-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 2;
+      background: none;
+      border: 2px solid #c8b8aa;
+      color: #c8b8aa;
+      padding: 1em 2em;
+      font-size: 1.2em;
+      cursor: pointer;
+      font-family: 'Courier New', monospace;
+      transition: background 0.3s, color 0.3s, opacity 1s ease;
+    }
+
+    #enter-btn:hover {
+      background: #c8b8aa;
+      color: black;
+    }
+
+    #enter-btn.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    #text-container {
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
   <div class="overlay" id="overlay"></div>
+
+  <button id="enter-btn">Enter</button>
+
   <div class="container" id="text-container">
     <div class="line" style="top: 18%;">You’re moving. You’re changing. But you’re not awake.</div>
     <div class="line" style="top: 24%;">Not dead. Just drifting.</div>
@@ -77,10 +110,17 @@
     <div class="line" style="top: 78%;">This is how we</div>
   </div>
 
+  <audio id="bg-music" loop preload="auto">
+    <source src="audio/your-track.mp3" type="audio/mpeg">
+  </audio>
+
   <script>
+    const enterBtn = document.getElementById('enter-btn');
     const lines = document.querySelectorAll('.line');
     const overlay = document.getElementById('overlay');
+    const music = document.getElementById('bg-music');
     const totalLines = lines.length;
+
     let current = 0;
     let overlayAlpha = 0.98;
     let backgroundFading = false;
@@ -88,13 +128,11 @@
     const firstDelay = 2000; // 2-second delay before first line
 
     function showNextLine() {
-      // Hide previous line
       if (current > 0) {
         lines[current - 1].classList.remove('visible');
         lines[current - 1].classList.add('hidden');
       }
 
-      // Show current line
       if (current < totalLines) {
         const line = lines[current];
         line.classList.add('visible');
@@ -117,8 +155,22 @@
       }, 100);
     }
 
-    // Start after initial delay
-    setTimeout(showNextLine, firstDelay);
+    enterBtn.addEventListener('click', () => {
+      // Fade out the button smoothly
+      enterBtn.classList.add('fade-out');
+
+      // Remove button from DOM after fade
+      setTimeout(() => {
+        enterBtn.remove();
+      }, 1000); // matches CSS transition duration
+
+      // Start music loop
+      music.play();
+
+      // Begin text animation
+      setTimeout(showNextLine, firstDelay);
+    });
   </script>
 </body>
 </html>
+

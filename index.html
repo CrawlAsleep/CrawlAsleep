@@ -30,7 +30,7 @@
       inset: 0;
       background-color: rgba(0, 0, 0, 0.95);
       z-index: 0;
-      transition: background-color 5s ease;
+      transition: background-color 3s linear;
     }
 
     .container {
@@ -43,10 +43,11 @@
     .line {
       position: absolute;
       opacity: 0;
-      transition: opacity 2s ease;
-      font-size: clamp(1rem, 3.5vw, 1.5rem);
-      width: 80%;
-      margin: 0 auto;
+      transition: opacity 3s ease;
+      font-size: clamp(1.2rem, 4vw, 2rem);
+      width: 90%;
+      left: 50%;
+      transform: translateX(-50%);
     }
 
     .line.visible {
@@ -57,7 +58,6 @@
       .line {
         font-size: 1rem;
         width: 90%;
-        padding: 0 1rem;
       }
     }
   </style>
@@ -82,36 +82,34 @@
   <script>
     const lines = document.querySelectorAll('.line');
     const overlay = document.getElementById('overlay');
-    const container = document.getElementById('container');
     let current = 0;
-    const delay = 3500; // 3.5 seconds
+    const delay = 3500; // Time between line transitions
+    const fadeStep = 0.05; // Background fade step per line
+    let overlayAlpha = 0.95;
 
-    // Randomize position near center
-    function randomizePosition(el) {
-      const top = 40 + Math.random() * 20; // 40–60% vertical
-      const left = 30 + Math.random() * 40; // 30–70% horizontal
+    function setRandomVerticalPosition(el) {
+      const top = 30 + Math.random() * 40; // between 30% and 70%
       el.style.top = `${top}%`;
-      el.style.left = `${left}%`;
-      el.style.transform = 'translate(-50%, -50%)';
     }
 
     function showNextLine() {
+      // Fade out the previous line
       if (current > 0) {
         lines[current - 1].classList.remove('visible');
       }
 
+      // Fade in the current line
       if (current < lines.length) {
         const line = lines[current];
-        randomizePosition(line);
+        setRandomVerticalPosition(line);
         line.classList.add('visible');
-        current++;
 
+        // Gradually fade overlay (brighten background slightly per line)
+        overlayAlpha = Math.max(overlayAlpha - fadeStep, 0.55); // Never go below 0.55
+        overlay.style.backgroundColor = `rgba(0, 0, 0, ${overlayAlpha})`;
+
+        current++;
         setTimeout(showNextLine, delay);
-      } else {
-        // Once all lines shown, wait a bit and fade the overlay
-        setTimeout(() => {
-          overlay.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
-        }, delay);
       }
     }
 
